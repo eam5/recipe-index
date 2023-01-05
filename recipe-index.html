@@ -1,0 +1,305 @@
+---
+layout: default
+title: Recipe Index
+---
+<style>
+    .pagination {
+    --bs-pagination-padding-x: 0.75rem;
+    --bs-pagination-padding-y: 0.375rem;
+    --bs-pagination-font-size: 1rem;
+    --bs-pagination-color: var(--bs-link-color);
+    --bs-pagination-bg: #fff;
+    --bs-pagination-border-width: 1px;
+    --bs-pagination-border-color: #dee2e6;
+    --bs-pagination-border-radius: 0.375rem;
+    --bs-pagination-hover-color: var(--bs-link-hover-color);
+    --bs-pagination-hover-bg: #e9ecef;
+    --bs-pagination-hover-border-color: #dee2e6;
+    --bs-pagination-focus-color: var(--bs-link-hover-color);
+    --bs-pagination-focus-bg: #e9ecef;
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: #0d6efd;
+    --bs-pagination-active-border-color: #0d6efd;
+    --bs-pagination-disabled-color: #6c757d;
+    --bs-pagination-disabled-bg: #fff;
+    --bs-pagination-disabled-border-color: #dee2e6;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+}
+.pagination li {
+  display:inline-block;
+  padding:5px;
+}
+
+
+
+.button:active,
+.button.is-checked {
+  background-color: #28F;
+}
+
+.button.is-checked {
+  color: white;
+  /* text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8); */
+}
+
+.button:active {
+  box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
+}
+
+.ui-group h3 {
+  margin-right: 0.2em;
+  font-size: 16px;
+}
+
+</style>
+
+<div class='d-flex align-items-center justify-content-between'>
+    <h1>{{page.title}}</h1>
+    <a href="{{ site.url }}"><span>Issues</span></a>
+</div>
+<div id="recipes" class="m-2 p-3">
+    <input type="text" class="quicksearch form-control" placeholder="Search" />
+
+    <!-- <div class="button-group filter-button-group justify-content-center">
+        <a class="btn btn-sm btn-primary" data-filter=".MainCourses">Mains</a>
+        <a class="btn btn-sm btn-primary" data-filter=".SideDishes">Sides</a>
+        <a class="btn btn-sm btn-primary active" data-filter="*">All</a>
+    </div> -->
+
+    <div class="d-flex flex-wrap filters pt-3 pb-3">
+
+        <div class="ui-group p-2">
+          <h3>Course</h3>
+          <div class="button-group js-radio-button-group" data-filter-group="color">
+            <button class="button is-checked btn btn-sm btn-light" data-filter="">any</button>
+            {% assign array_course_list = "" | split: "," %}
+            {% assign recipe_by_course = site.data.recipes | sort: "course_list" %}
+            {% for recipe in recipe_by_course %}
+            {% if recipe.course_list != "na" %}
+            {% assign array_course_list = array_course_list | push: recipe.course_list %}
+            {% endif %}
+            {% endfor %}
+            {% assign array_course = array_course_list | uniq %}
+            {% for course in array_course %}
+            <button class="button btn btn-sm btn-light" data-filter=".{{ course | remove: " " | replace: "&", "and" }}">{{course}}</button>
+            {% endfor %}
+      </div>
+        </div>
+      
+        <div class="ui-group p-2">
+          <h3>Main Ingredient</h3>
+          <div class="button-group js-radio-button-group" data-filter-group="size">
+            <button class="button is-checked btn btn-sm btn-light" data-filter="">any</button>
+            {% assign array_ingredient = "" | split: "," %}
+            {% assign recipe_by_ingredient = site.data.recipes | sort: "main_ingredient_list" %}
+            {% for recipe in recipe_by_ingredient %}
+            {% if recipe.main_ingredient_list != "na" %}
+            {% assign array_ingredient = array_ingredient | push: recipe.main_ingredient_list %}
+            {% endif %}
+            {% endfor %}
+            {% assign array_ingred = array_ingredient | uniq %}
+            {% for ingredient in array_ingred %}
+            <button class="button btn btn-sm btn-light" data-filter=".{{ingredient | remove: " " | replace: "&", "and" }}">{{ingredient}}</button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="ui-group p-2">
+            <h3>Dish Type</h3>
+            <div class="button-group js-radio-button-group" data-filter-group="color">
+              <button class="button is-checked btn btn-sm btn-light" data-filter="">any</button>
+              {% assign array_dish_type = "" | split: "," %}
+                {% assign recipe_by_dish = site.data.recipes | sort: "dish_type_list" %}
+                {% for recipe in recipe_by_dish %}
+                {% if recipe.dish_type_list != "na" %}
+                {% assign array_dish_type = array_dish_type | push: recipe.dish_type_list %}
+                {% endif %}
+                {% endfor %}
+                {% assign array_dish = array_dish_type | uniq %}
+                {% for dish in array_dish %}
+                <button class="button btn btn-sm btn-light" data-filter=".{{ dish | remove: " " | replace: "&", "and" }}">{{dish}}</button>
+                {% endfor %}
+            </div>
+          </div>
+        
+          <div class="ui-group p-2">
+            <h3>Recipe Type</h3>
+            <div class="button-group js-radio-button-group" data-filter-group="size">
+              <button class="button is-checked btn btn-sm btn-light" data-filter="">any</button>
+              {% assign array_recipe_type = "" | split: "," %}
+                {% assign recipe_by_type = site.data.recipes | sort: "recipe_type_list" %}
+                {% for recipe in recipe_by_type %}
+                {% if recipe.recipe_type_list != "na" %}
+                {% assign array_recipe_type = array_recipe_type | push: recipe.recipe_type_list %}
+                {% endif %}
+                {% endfor %}
+                {% assign array_recipe = array_recipe_type | uniq %}
+                {% for type in array_recipe %}
+                <button class="button btn btn-sm btn-light" data-filter=".{{ type | remove: " " | replace: "&", "and" }}">{{type}}</button>
+                {% endfor %}
+            </div>
+          </div>
+  
+
+        <div class="ui-group p-2">
+            <h3>Cuisine</h3>
+            <div class="button-group js-radio-button-group" data-filter-group="size">
+              <button class="button is-checked btn btn-sm btn-light" data-filter="">any</button>
+              {% assign array_cuisine_list = "" | split: "," %}
+                {% assign recipe_by_cuisine = site.data.recipes | sort: "cuisine_list" %}
+                {% for recipe in recipe_by_cuisine %}
+                {% if recipe.cuisine_list != "na" %}
+                {% assign array_cuisine_list = array_cuisine_list | push: recipe.cuisine_list %}
+                {% endif %}
+                {% endfor %}
+                {% assign array_cuisine = array_cuisine_list | uniq %}
+                {% for cuisine in array_cuisine %}
+                <button class="button btn btn-sm btn-light" data-filter=".{{ cuisine | remove: " " | replace: "&", "and" }}">{{cuisine}}</button>
+                {% endfor %}
+            </div>
+          </div>
+  
+      </div>
+
+     
+
+
+
+    <ul class="grid list list-inline d-flex flex-wrap pt-3 pb-3">
+        {% assign recipe_by_title = site.data.recipes | sort: "title" %}
+        {% for recipe in recipe_by_title %}
+        {% if recipe.type == "recipes" %}
+        {% assign namepath = recipe.image_path | append: recipe.image_file %}
+            <li class="list-inline-item pb-2 {{ recipe.course_list  | remove: " " }} {{ recipe.main_ingredient_list  | remove: " " | replace: "&", "and" }} {{ recipe.cuisine_list  | remove: " " | replace: "&", "and"}} {{ recipe.dish_type_list  | remove: " " | replace: "&", "and" }} {{ recipe.recipe_type_list  | remove: " " }}">
+                <!-- <a class="title" href="{{ recipe.title | datapage_url: 'recipes' }}">{{recipe.title}}</a> -->
+                <div class="card" style="max-width: 200px;">
+                    <a class="title" href="{{ recipe.title | datapage_url: 'recipes' }}">
+                        <img src="{{ namepath | prepend: site.url }}" class="card-img-top" alt="...">
+                    </a>
+                    
+                    <div class="card-body">
+                        <a class="title" href="{{ recipe.title | datapage_url: 'recipes' }}">
+                            <h5 class="card-title">{{recipe.title}}</h5> </a>
+                            <p class="card-text">Issue {{ recipe.issue }}</p>
+                            {% if recipe.course_list != "na" %}
+                            <span class="card-text course_list"><small class="text-muted">{{ recipe.course_list }}</small></span>
+                            {% endif %}
+                            {% if recipe.cuisine_list != "na" %}
+                            <span class="card-text cuisine_list"><small class="text-muted">{{ recipe.cuisine_list }}</small></span>
+                            {% endif %}
+                            {% if recipe.dish_type_list != "na" %}
+                            <span class="card-text dish_type_list"><small class="text-muted">{{ recipe.dish_type_list }}</small></span>
+                            {% endif %}
+                            {% if recipe.main_ingredient_list != "na" %}
+                            <span class="card-text main_ingredient_list"><small class="text-muted">{{ recipe.main_ingredient_list }}</small></span>
+                            {% endif %}
+                            {% if recipe.recipe_type_list != "na" %}
+                            <span class="card-text recipe_type_list"><small class="text-muted">{{ recipe.recipe_type_list }}</small></span>
+                            {% endif %}
+                    </div>
+                  </div>
+            </li>
+        {% endif %}{% endfor %}
+    </ul>
+    <!-- <nav aria-label="Page navigation">
+        <ul class="pagination"></ul>
+      </nav> -->
+</div>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/isotope-layout@3.0/dist/isotope.pkgd.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
+<script>
+//   var $grid = $('.grid').imagesLoaded( function() {
+//       $grid.isotope({});
+//   });
+//   $('.filter-button-group').on( 'click', 'a', function() {
+//       var filterValue = $(this).attr('data-filter');
+//       $grid.isotope({ filter: filterValue });
+//    });
+//    $('.button-group a.btn').on('click', function(){
+//       $('.button-group a.btn').removeClass('active');
+//       $(this).addClass('active');
+//    });
+
+// external js: isotope.pkgd.js
+
+// quick search regex
+var qsRegex;
+
+// init Isotope
+var $grid = $('.grid').isotope({
+  itemSelector: '.list-inline-item',
+  layoutMode: 'fitRows',
+  filter: function() {
+    return qsRegex ? $(this).text().match( qsRegex ) : true;
+  }
+});
+
+$grid.imagesLoaded().progress( function() {
+  $grid.isotope('layout');
+});
+
+// use value of search field to filter
+var $quicksearch = $('.quicksearch').keyup( debounce( function() {
+  qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+  $grid.isotope();
+}, 200 ) );
+
+// debounce so filtering doesn't happen every millisecond
+function debounce( fn, threshold ) {
+  var timeout;
+  threshold = threshold || 100;
+  return function debounced() {
+    clearTimeout( timeout );
+    var args = arguments;
+    var _this = this;
+    function delayed() {
+      fn.apply( _this, args );
+    }
+    timeout = setTimeout( delayed, threshold );
+  };
+}
+
+// store filter for each group
+var filters = {};
+
+$('.filters').on( 'click', '.button', function( event ) {
+  var $button = $( event.currentTarget );
+  // get group key
+  var $buttonGroup = $button.parents('.button-group');
+  var filterGroup = $buttonGroup.attr('data-filter-group');
+  // set filter for group
+  filters[ filterGroup ] = $button.attr('data-filter');
+  // combine filters
+  var filterValue = concatValues( filters );
+  // set filter for Isotope
+  $grid.isotope({ filter: filterValue });
+});
+
+// change is-checked class on buttons
+$('.button-group').each( function( i, buttonGroup ) {
+  var $buttonGroup = $( buttonGroup );
+  $buttonGroup.on( 'click', 'button', function( event ) {
+    $buttonGroup.find('.is-checked').removeClass('is-checked');
+    var $button = $( event.currentTarget );
+    $button.addClass('is-checked');
+  });
+});
+  
+// flatten object by concatting values
+function concatValues( obj ) {
+  var value = '';
+  for ( var prop in obj ) {
+    value += obj[ prop ];
+  }
+  return value;
+}
+
+
+
+</script>
+

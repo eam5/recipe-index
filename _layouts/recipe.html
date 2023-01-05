@@ -1,0 +1,56 @@
+---
+layout: default
+---
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-transparent" style="padding-inline-start:0;">
+        <li class="breadcrumb-item"><a href="{{ site.url}}">All Issues</a></li>
+        {% assign pagepath = page.issue | prepend: "/issues/"%}
+      <li class="breadcrumb-item"><a href="{{ pagepath | prepend: site.url}}">Issue {{page.issue}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{page.title}}</li>
+    </ol>
+</nav>
+<!-- <small>Issue {{page.issue}} : {{page.date}}</small> -->
+<h1>{{page.title}}</h1>
+
+{% assign namepath = page.image_path | append: page.image_file %}
+<img src="{{namepath}}" class="img-thumbnail" alt="{{page.title}}">
+
+<div class="recipe_details pt-4">
+    <p><strong>Servings: </strong>{{page.recipe_details[0]}}</p>
+    <p><strong>Time: </strong>{{page.recipe_details[1]}}</p>    
+</div>
+
+<!-- {% for recipe_details in page.recipe_details %}
+ <p>{{recipe_details}}</p>
+{% endfor %} -->
+
+<h3>Ingredients</h3>
+<ul>
+    {% for ingredients in page.ingredients %}
+    <li>{{ingredients}}</li>
+   {% endfor %}
+</ul>
+
+<h3>Equipment</h3>
+<ul>
+    {% for equipment in page.equipment %}
+    <li>{{equipment}}</li>
+   {% endfor %}
+</ul>
+
+<h3>Recipe Notes</h3>
+<ol>
+    {% for instruction_notes in page.instruction_notes %}
+    <li>{{instruction_notes}}</li>
+   {% endfor %}
+</ol>
+
+<h3>Instructions</h3>
+
+<ol>
+    {% for instructions in page.instructions %}
+    <li>{{instructions}}</li>
+   {% endfor %}
+</ol>
+
+

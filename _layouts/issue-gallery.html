@@ -1,0 +1,200 @@
+---
+layout: default
+---
+<style>
+  a {color:#212529; text-decoration: none;}
+a:hover {color:#212529; text-decoration: underline;}
+</style>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-transparent" style="padding-inline-start:0;">
+      <li class="breadcrumb-item"><a href="{{ site.url}}">All Issues</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Issue {{page.issue}}</li>
+    </ol>
+</nav>
+
+<h1>{{page.date}}</h1>
+<h2>Issue {{page.issue}}</h2>
+
+<nav aria-label="shortcuts">
+  <ul class="nav">
+    <li class="nav-item"><a class="nav-link" href="#recipes">Recipes</a></li>
+    <li class="nav-item"><a class="nav-link" href="#how_tos">How Tos</a></li>
+    <li class="nav-item"><a class="nav-link" href="#taste_tests">Taste Tests</a></li>
+    <li class="nav-item"><a class="nav-link" href="#articles">Articles</a></li>
+    <li class="nav-item"><a class="nav-link" href="#equip_reviews">Equipment Reviews</a></li>
+    <li class="nav-item"><a class="nav-link" href="#videos">Videos</a></li>
+  </ul>
+</nav>
+
+<div class="album py-4 bg-light">
+    <div class="container">
+        <h2 id="recipes">Recipes</h2>
+      <div class="row">
+
+    {% for content in page.contents %}
+   
+    {% if content.type == "recipes" %}
+    {% assign namepath = content.image_path | append: content.image_file %}
+   
+        <div class="col-md-3 py-2">
+          <div class="card mb-2 shadow-sm">
+            {% assign pagepath1 =  content.title | downcase | remove: ")" | remove: "(" | remove: "," | remove: "'" | replace: "é", "e" | replace: "è", "e" | replace: "ç", "c" | replace: "ı", "i"%}
+            {% assign pagepath = pagepath1 | prepend: "/recipes/" | replace: " ", "-" %}
+            <a href="{{ pagepath | prepend: site.url }}">
+              <img src="{{ namepath | prepend: site.url }}" alt="{{ namepath }}" title="{{ namepath }}" class="bd-placeholder-img card-img-top image-fluid" />
+            </a>
+            <div class="card-body p-2 overflow-hidden" >
+                
+                <ul class="mb-1" style="list-style-type:none;padding-inline-start:0;">
+                  <li class="card-text text-truncate"><small class="text-muted">{{ content.type }}</small></li>
+                  <a href="{{ pagepath | prepend: site.url }}">
+                    <li class="card-text"><strong>{{ content.title }}</strong></li> 
+                  </a>
+                </ul>
+              
+            </div>
+
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <h2 id="how_tos">How Tos</h2>
+      <div class="row">
+
+    {% for content in page.contents %}
+    {% if content.type == "how_tos" %}
+    {% assign namepath = content.image_path | append: content.image_file %}
+   
+        <div class="col-md-3 py-2">
+          <div class="card mb-2 shadow-sm">
+            <a href="{{ content.url }}">
+              <img src="{{ namepath | prepend: site.url }}" alt="{{ content.url }}" title="{{ content.url }}" class="bd-placeholder-img card-img-top image-fluid" />
+            </a>
+            <div class="card-body p-2 overflow-hidden" >
+                <ul class="mb-1" style="list-style-type:none;padding-inline-start:0;">
+                  <li class="card-text text-truncate"><small class="text-muted">{{ content.type }}</small></li>
+                  <a href="{{ content.url }}">
+                    <li class="card-text"><strong>{{ content.title }}</strong></li> 
+                  </a>
+                </ul>
+            </div>
+
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <h2 id="taste_tests">Taste Tests</h2>
+      <div class="row">
+
+    {% for content in page.contents %}
+    {% if content.type == "taste_tests" %}
+    {% assign namepath = content.image_path | append: content.image_file %}
+   
+    <div class="col-md-3 py-2">
+      <div class="card mb-2 shadow-sm">
+        <a href="{{ content.url }}">
+          <img src="{{ namepath | prepend: site.url }}" alt="{{ content.url }}" title="{{ content.url }}" class="bd-placeholder-img card-img-top image-fluid" />
+        </a>
+        <div class="card-body p-2 overflow-hidden" >
+            <ul class="mb-1" style="list-style-type:none;padding-inline-start:0;">
+              <li class="card-text text-truncate"><small class="text-muted">{{ content.type }}</small></li>
+              <a href="{{ content.url }}">
+                <li class="card-text"><strong>{{ content.title }}</strong></li> 
+              </a>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+    {% endif %}
+        {% endfor %}
+      </div>
+
+      <h2 id="articles">Articles</h2>
+      <div class="row">
+
+    {% for content in page.contents %}
+    {% if content.type == "articles" %}
+    {% assign namepath = content.image_path | append: content.image_file %}
+   
+    <div class="col-md-3 py-2">
+      <div class="card mb-2 shadow-sm">
+        <a href="{{ content.url }}">
+          <img src="{{ namepath | prepend: site.url }}" alt="{{ content.url }}" title="{{ content.url }}" class="bd-placeholder-img card-img-top image-fluid" />
+        </a>
+        <div class="card-body p-2 overflow-hidden" >
+            <ul class="mb-1" style="list-style-type:none;padding-inline-start:0;">
+              <li class="card-text text-truncate"><small class="text-muted">{{ content.type }}</small></li>
+              <a href="{{ content.url }}">
+                <li class="card-text"><strong>{{ content.title }}</strong></li> 
+              </a>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+    {% endif %}
+        {% endfor %}
+      </div>
+
+      <h2 id="equip_reviews">Equipment Reviews</h2>
+      <div class="row">
+
+    {% for content in page.contents %}
+    {% if content.type == "equipment_reviews" %}
+    {% assign namepath = content.image_path | append: content.image_file %}
+   
+    <div class="col-md-3 py-2">
+      <div class="card mb-2 shadow-sm">
+        <a href="{{ content.url }}">
+          <img src="{{ namepath | prepend: site.url }}" alt="{{ content.url }}" title="{{ content.url }}" class="bd-placeholder-img card-img-top image-fluid" />
+        </a>
+        <div class="card-body p-2 overflow-hidden" >
+            <ul class="mb-1" style="list-style-type:none;padding-inline-start:0;">
+              <li class="card-text text-truncate"><small class="text-muted">{{ content.type }}</small></li>
+              <a href="{{ content.url }}">
+                <li class="card-text"><strong>{{ content.title }}</strong></li> 
+              </a>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+    {% endif %}
+        {% endfor %}
+      </div>
+
+      <h2 id="videos">Videos</h2>
+      <div class="row">
+
+    {% for content in page.contents %}
+    {% if content.type == "videos" %}
+    {% assign namepath = content.image_path | append: content.image_file %}
+   
+    <div class="col-md-3 py-2">
+      <div class="card mb-2 shadow-sm">
+        <a href="{{ content.url }}">
+          <img src="{{ namepath | prepend: site.url }}" alt="{{ content.url }}" title="{{ content.url }}" class="bd-placeholder-img card-img-top image-fluid" />
+        </a>
+        <div class="card-body p-2 overflow-hidden" >
+            <ul class="mb-1" style="list-style-type:none;padding-inline-start:0;">
+              <li class="card-text text-truncate"><small class="text-muted">{{ content.type }}</small></li>
+              <a href="{{ content.url }}">
+                <li class="card-text"><strong>{{ content.title }}</strong></li> 
+              </a>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+    {% endif %}
+        {% endfor %}
+      </div>
+      
+    </div>
+</div>
+
