@@ -13,7 +13,7 @@ layout: default
 <h1>{{page.title}}</h1>
 
 {% assign namepath = page.image_path | append: page.image_file %}
-<img src="{{namepath}}" class="img-thumbnail" alt="{{page.title}}">
+<img src="{{ namepath | prepend: site.url }}" class="img-thumbnail" alt="{{page.title}}">
 
 <div class="recipe_details pt-4">
     <p><strong>Servings: </strong>{{page.recipe_details[0]}}</p>
